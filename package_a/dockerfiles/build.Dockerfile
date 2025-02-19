@@ -1,8 +1,8 @@
-FROM package_a:deps AS builder
+FROM package_a:base AS builder
 ARG TARGET_WORKSPACE_DIR
 
 # get the source files to build
-COPY src/package_a/ $TARGET_WORKSPACE_DIR/src
+COPY . $TARGET_WORKSPACE_DIR/src
 
 WORKDIR $TARGET_WORKSPACE_DIR
 

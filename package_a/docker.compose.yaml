@@ -5,7 +5,8 @@ services:
     container_name: package_a-base
     pull_policy: build
     build:
-      dockerfile: ${HOST_WORKSPACE_DIR}/src/package_a/dockerfiles/base.Dockerfile
+      context: ${PACKAGE_A_HOST_DIR}
+      dockerfile: dockerfiles/base.Dockerfile
     image: "package_a:base"
 
   # service that sets custom users, installs rosdeps, and builds the package
@@ -14,9 +15,9 @@ services:
     pull_policy: build   # change to image if you already have a prebuilt thing you want to pull
     build:
       args:
-        TARGET_WORKSPACE_DIR: ${TARGET_WORKSPACE_DIR} 
-      context: ${HOST_WORKSPACE_DIR}
-      dockerfile: ${HOST_WORKSPACE_DIR}/src/package_a/dockerfiles/build.Dockerfile
+        TARGET_WORKSPACE_DIR: ${PACKAGE_A_TARGET_WS} 
+      context: ${PACKAGE_A_HOST_DIR}
+      dockerfile: dockerfiles/build.Dockerfile
     image: "package_a:build"
     depends_on:
       package_a-base:

@@ -1,6 +1,6 @@
 {
     "name": "package_a-dev",
     "dockerComposeFile": "../docker.compose.yaml",
-    "service": "package_a-build"  ,
-    "workspaceFolder": "/workspaces/lls_ws"      
+    "service": "package_a-base"  ,
+    "workspaceFolder": "/workspaces/package_a_ws"      
 }
