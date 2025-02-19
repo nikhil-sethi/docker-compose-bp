@@ -1,0 +1,2 @@
+include:
+  - ${HOST_WORKSPACE_DIR}/src/package_a/docker.compose.yaml

@@ -1,0 +1,24 @@
+services:
+
+  # service that installs os level dependencies that ros needs (eg. hardware interfaces)
+  package_a-base:
+    container_name: package_a-base
+    pull_policy: build
+    build:
+      dockerfile: ${HOST_WORKSPACE_DIR}/src/package_a/dockerfiles/base.Dockerfile
+    image: "package_a:base"
+
+  # service that sets custom users, installs rosdeps, and builds the package
+  package_a-build:
+    container_name: package_a-build
+    pull_policy: build   # change to image if you already have a prebuilt thing you want to pull
+    build:
+      args:
+        TARGET_WORKSPACE_DIR: ${TARGET_WORKSPACE_DIR} 
+      context: ${HOST_WORKSPACE_DIR}
+      dockerfile: ${HOST_WORKSPACE_DIR}/src/package_a/dockerfiles/build.Dockerfile
+    image: "package_a:build"
+    depends_on:
+      package_a-base:
+        condition: service_completed_successfully
+    command: tail -f /dev/null
